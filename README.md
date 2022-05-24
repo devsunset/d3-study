@@ -35,6 +35,8 @@ https://github.com/d3/d3-geo-projection
 6. 이벤트 처리 
 
 ------------------------------------------------
+Basic
+
 
 [index01.html](https://github.com/devsunset/d3-work/blob/main/Basic/index01.html)
 D3.js & Basic
@@ -50,6 +52,10 @@ D3.js & Data
 
 [index05.html](https://github.com/devsunset/d3-work/blob/main/Basic/index05.html)
 D3.js & Data Handling
+
+
+Chart
+
 
 [index06.html](https://github.com/devsunset/d3-work/blob/main/index06.html)
 
