@@ -57,23 +57,23 @@ D3.js & Data Handling
 Chart
 
 
-[index06.html](https://github.com/devsunset/d3-work/blob/main/index06.html)
+[index06.html](https://github.com/devsunset/d3-work/blob/main/Chart/index06.html)
 
-[index07.html](https://github.com/devsunset/d3-work/blob/main/index07.html)
+[index07.html](https://github.com/devsunset/d3-work/blob/main/Chart/index07.html)
 
-[index08.html](https://github.com/devsunset/d3-work/blob/main/index08.html)
+[index08.html](https://github.com/devsunset/d3-work/blob/main/Chart/index08.html)
 
-[index09.html](https://github.com/devsunset/d3-work/blob/main/index09.html)
+[index09.html](https://github.com/devsunset/d3-work/blob/main/Chart/index09.html)
 
-[index10.html](https://github.com/devsunset/d3-work/blob/main/index10.html)
+[index10.html](https://github.com/devsunset/d3-work/blob/main/Chart/index10.html)
 
-[index11.html](https://github.com/devsunset/d3-work/blob/main/index11.html)
+[index11.html](https://github.com/devsunset/d3-work/blob/main/Chart/index11.html)
 
-[index12.html](https://github.com/devsunset/d3-work/blob/main/index12.html)
+[index12.html](https://github.com/devsunset/d3-work/blob/main/Chart/index12.html)
 
-[index13.html](https://github.com/devsunset/d3-work/blob/main/index13.html)
+[index13.html](https://github.com/devsunset/d3-work/blob/main/Chart/index13.html)
 
-[index14.html](https://github.com/devsunset/d3-work/blob/main/index14.html)
+[index14.html](https://github.com/devsunset/d3-work/blob/main/Chart/index14.html)
 
 
 
