@@ -88,7 +88,6 @@
                 })
             })
 
-
             // 데이터셋이 CSV 파일일 때(헤더가 한글일 때)
             d3.csv("data_kor.csv", function(error, data){
                     var dataSet = [ ];	// 데이터를 저장할 배열을 준비
@@ -272,7 +271,6 @@
                 })
             })
 
-
             // 데이터셋이 특정 문자로 구분된 파일일 때
             d3.text("data_dsv.txt", function(error, plainText){
                 var dataSet = d3.dsv("_", "text/plain").parse(plainText);
@@ -292,7 +290,6 @@
                         return i * 25	// 표시 순서에 25를 곱해 위치를 계산
                 })
             })
-
         </script>
 	</body>
 </html>
