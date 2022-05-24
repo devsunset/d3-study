@@ -35,20 +35,21 @@ https://github.com/d3/d3-geo-projection
 6. 이벤트 처리 
 
 ------------------------------------------------
-D3.js & Basic
+
 [index01.html](https://github.com/devsunset/d3-work/blob/main/index01.html)
+D3.js & Basic
 
-SVG
 [index02.html](https://github.com/devsunset/d3-work/blob/main/index02.html)
+SVG
 
-D3.js & SVG
 [index03.html](https://github.com/devsunset/d3-work/blob/main/index03.html)
+D3.js & SVG
 
-D3.js & Data
 [index04.html](https://github.com/devsunset/d3-work/blob/main/index04.html)
+D3.js & Data
 
-D3.js & Data Handling
 [index05.html](https://github.com/devsunset/d3-work/blob/main/index05.html)
+D3.js & Data Handling
 
 [index06.html](https://github.com/devsunset/d3-work/blob/main/index06.html)
 
