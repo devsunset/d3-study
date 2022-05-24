@@ -58,6 +58,7 @@ Graph
 
 
 [index06.html](https://github.com/devsunset/d3-work/blob/main/Graph/index06.html)
+세로형 막대그래프
 
 [index07.html](https://github.com/devsunset/d3-work/blob/main/Graph/index07.html)
 
