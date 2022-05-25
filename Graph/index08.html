@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Graph - 꺽은선 그래프</title>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<style>
+			svg { width: 380px; height: 240px; border: 1px solid black; }
+            .line { fill: none; stroke: black; }
+            .axis text {
+                    font-family: sans-serif;
+                    font-size: 11px;
+                }
+            .axis path,
+            .axis line {
+                    fill: none;
+                    stroke: black;
+                }
+            .axis_x line {
+                    fill: none;
+                    stroke: black;
+                }
+            .itemA { stroke: #000; }
+            .itemB { stroke: #666; }
+            .itemC { stroke: #ccc; }
+            .itemD { stroke: #000; fill : cyan; }
+		</style>
+	</head>
+	<body>
+		<svg id="myGraph1"></svg>
+        <svg id="myGraph2"></svg>
+        <svg id="myGraph3"></svg>
+        <svg id="myGraph4"></svg>
+        <svg id="myGraph5"></svg>
+        <svg id="myGraph6"></svg>
+        <svg id="myGraph7"></svg>
+        <svg id="myGraph8"></svg>
+        <svg id="myGraph9"></svg>
+        <svg id="myGraph10"></svg>
+        <svg id="myGraph11"></svg>
+        <svg id="myGraph12"></svg>
+        <div>
+			<button id="prev">이전</button>
+			<button id="next">다음</button>
+		</div>
+		<script>
+            // 꺽은선 그래프
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var dataSet = [10, 47, 65, 8, 64, 99, 75, 22, 63, 80];	// 데이터셋
+            var margin = svgWidth/(dataSet.length - 1);	// 꺾은선 그래프의 간격 계산
+            // 꺾은선 그래프의 좌표를 계산하는 메서드
+            var line = d3.svg.line()	// svg의 선
+                .x(function(d, i){
+                    return i * margin;	// X 좌표는 표시 순서×간격
+                })
+                .y(function(d, i){
+                    return svgHeight - d;	// 데이터로부터 Y 좌표 빼기
+                })
+            // 꺾은선 그래프 그리기
+            var lineElements = d3.select("#myGraph1")
+                .append("path")	// 데이터 수만큼 path 요소가 추가됨
+                .attr("class", "line")	// CSS 클래스 지정
+                .attr("d", line(dataSet))	//연속선 지정
+
+            // 눈금을 추가한 꺽은선 그래프 그리기 
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var offsetX = 30;	// 가로 오프셋
+            var offsetY = 20;	// 세로 오프셋
+            var scale = 2.0;	// 2배 크기로 그리기
+            var dataSet = [10, 47, 65, 8, 64, 99, 75, 22, 63, 80];	// 데이터셋
+            var margin = svgWidth /(dataSet.length - 1);	// 꺾은선 그래프의 간격 계산
+            // 꺾은선 그래프의 좌표를 계산하는 메서드
+            var line = d3.svg.line()	// svg의 선
+            .x(function(d, i){
+                    return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+                })
+            .y(function(d, i){
+                    return svgHeight - (d * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+                })
+            // 꺾은선 그래프 그리기
+            var lineElements = d3.select("#myGraph2")
+            .append("path")	// 데이터 수만큼 path 요소가 추가됨
+            .attr("class", "line")	// CSS 클래스 지정
+            .attr("d", line(dataSet))	//연속선 지정
+            // 눈금 표시를 위한 스케일 설정
+            var yScale = d3.scale.linear()  // 스케일 설정
+            .domain([0, 100])   // 원래 크기
+            .range([scale*100, 0]) // 실제 표시 크기
+            // 눈금 표시
+            d3.select("#myGraph2")	// SVG 요소를 지정
+                .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                .attr("class", "axis")	// CSS 클래스 지정
+                .attr("transform", "translate("+offsetX+", "+offsetY+")")
+                .call(
+                        d3.svg.axis()
+                    .scale(yScale)  //스케일 적용
+                    .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                    )
+                // 가로 방향의 선을 표시
+                d3.select("#myGraph2")
+                .append("rect")	// rect 요소 추가
+                .attr("class", "axis_x")	// CSS 클래스 지정
+                .attr("width", svgWidth)	// 선의 넓이를 지정
+                .attr("height", 1)	// 선의 높이를 지정
+                .attr("transform", "translate("+offsetX+", "+(svgHeight-offsetY-0.5)+")")
+
+        // 눈금을 추가한 꺽은선 그래프 그리기  (눈금 표시 배율 조정)
+        var svgWidth = 320;	// SVG 요소의 넓이
+        var svgHeight = 240;	// SVG 요소의 높이
+        var offsetX = 30;	// 가로 오프셋
+        var offsetY = 20;	// 세로 오프셋
+        var scale = 1;	// 2배 크기로 그리기
+        var dataSet = [10, 47, 65, 8, 64, 99, 75, 22, 63, 80];	// 데이터셋
+        var margin = svgWidth /(dataSet.length - 1);	// 꺾은선 그래프의 간격 계산
+        // 꺾은선 그래프의 좌표를 계산하는 메서드
+        var line = d3.svg.line()	// svg의 선
+        .x(function(d, i){
+                return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+            })
+        .y(function(d, i){
+                return svgHeight - (d * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+            })
+        // 꺾은선 그래프 그리기
+        var lineElements = d3.select("#myGraph3")
+        .append("path")	// 데이터 수만큼 path 요소가 추가됨
+        .attr("class", "line")	// CSS 클래스 지정
+        .attr("d", line(dataSet))	//연속선 지정
+        // 눈금 표시를 위한 스케일 설정
+        var yScale = d3.scale.linear()  // 스케일 설정
+        .domain([0, 100])   // 원래 크기
+        .range([scale*100, 0]) // 실제 표시 크기
+        // 눈금 표시
+        d3.select("#myGraph3")	// SVG 요소를 지정
+            .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+            .attr("class", "axis")	// CSS 클래스 지정
+            .attr("transform", "translate("+offsetX+", "+((100-(scale-1)*100)+offsetY)+")")
+            .call(
+                    d3.svg.axis()
+                .scale(yScale)  //스케일 적용
+                .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                )
+            // 가로 방향의 선을 표시
+            d3.select("#myGraph3")
+            .append("rect")	// rect 요소 추가
+            .attr("class", "axis_x")	// CSS 클래스 지정
+            .attr("width", svgWidth)	// 선의 굵기를 지정
+            .attr("height", 1)	// 선의 높이를 지정
+            .attr("transform", "translate("+offsetX+", "+(svgHeight-offsetY-0.5)+")")
+
+            // 여러 개의 꺽은 선 그래프
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var offsetX = 30;	// 가로 오프셋
+            var offsetY = 20;	// 세로 오프셋
+            var scale = 2.0;	// 2배 크기로 그리기
+            var dataSet1 = [10, 47, 65, 8, 64, 99, 75, 22, 63, 80];	// 데이터셋1
+            var dataSet2 = [90, 77, 55, 48, 64, 90, 85, 42, 13, 40];	// 데이터셋2
+            var dataSet3 = [50, 27, 45, 58, 84, 70, 45, 22, 30, 90];	// 데이터셋3
+            var margin = svgWidth /(dataSet1.length - 1);	// 꺾은선 그래프의 간격 계산
+            drawGraph(dataSet1, "itemA");	// itemA의 꺾은선 그래프 표시
+            drawGraph(dataSet2, "itemB");	// itemB의 꺾은선 그래프 표시
+            drawGraph(dataSet3, "itemC");	// itemB의 꺾은선 그래프 표시
+            drawScale();	// 눈금 표시
+            // 꺾은선 그래프를 표시하는 함수
+            function drawGraph(dataSet, cssClassName){
+                // 꺾은선 그래프의 좌표를 계산하는 메서드
+                var line = d3.svg.line()	// svg의 선
+                .x(function(d, i){
+                        return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+                    })
+                .y(function(d, i){
+                        return svgHeight - (d * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+                    })
+                // 꺾은선 그래프 그리기
+                var lineElements = d3.select("#myGraph4")
+                .append("path")	// 데이터 수만큼 path 요소가 추가됨
+                .attr("class", "line "+cssClassName)	// CSS 클래스 지정
+                .attr("d", line(dataSet))	//연속선 지정
+            }
+            // 그래프의 눈금을 표시하는 함수
+            function drawScale(){
+                // 눈금을 표시하기 위해 D3 스케일 설정
+                var yScale = d3.scale.linear()  // 스케일 설정
+                .domain([0, 100])   // 원래 크기
+                .range([scale*100, 0]) // 실제 표시 크기
+                // 눈금 표시
+                d3.select("#myGraph4")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+offsetY+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(yScale)  //스케일 적용
+                        .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                        )
+                    // 가로 방향의 선을 표시
+                    d3.select("#myGraph4")
+                    .append("rect")	// rect 요소 추가
+                    .attr("class", "axis_x")	// CSS 클래스 지정
+                    .attr("width", svgWidth)	// 선의 굵기를 지정
+                    .attr("height", 1)	// 선의 높이를 지정
+                    .attr("transform", "translate("+offsetX+", "+(svgHeight-offsetY-0.5)+")")
+            }
+
+            // 꺽은선 그래프를 직선,곡선,계단 모양으로 표시
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var offsetX = 30;	// 가로 오프셋
+            var offsetY = 20;	// 세로 오프셋
+            var scale = 2.0;	// 2배 크기로 그리기
+            var dataSet1 = [10, 47, 65, 8, 64, 99, 75, 22, 63, 80];	// 데이터셋1
+            var dataSet2 = [90, 77, 55, 48, 64, 90, 85, 42, 13, 40];	// 데이터셋2
+            var dataSet3 = [50, 27, 45, 58, 84, 70, 45, 22, 30, 90];	// 데이터셋3
+            var margin = svgWidth /(dataSet1.length - 1);	// 꺾은선 그래프의 간격 계산
+            drawGraph1(dataSet1, "itemA", "linear");	// 직선으로 표시
+            drawGraph1(dataSet2, "itemB", "basis");	// 곡성느로 표시
+            drawGraph1(dataSet3, "itemC", "step");	// 계단 모양으로 표시
+            drawScale1();	// 눈금 표시
+            // 꺾은선 그래프를 표시하는 함수
+            function drawGraph1(dataSet, cssClassName, type){
+                // 꺾은선 그래프의 좌표를 계산하는 메서드
+                var line = d3.svg.line()	// svg의 선
+                .x(function(d, i){
+                        return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+                    })
+                .y(function(d, i){
+                        return svgHeight - (d * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+                    })
+                .interpolate(type)	// 꺾은선 그래프의 모양을 설정
+                // 꺾은선 그래프 그리기
+                var lineElements = d3.select("#myGraph5")
+                .append("path")	// 데이터 수만큼 path 요소가 추가됨
+                .attr("class", "line "+cssClassName)	// CSS 클래스 지정
+                .attr("d", line(dataSet))	//연속선 지정
+            }
+            // 그래프의 눈금을 표시하는 함수
+            function drawScale1(){
+                // 눈금을 표시하기 위한 D3 스케일 설정
+                var yScale = d3.scale.linear()  // 스케일 설정
+                .domain([0, 100])   // 원래 크기
+                .range([scale*100, 0]) // 실제 표시 크기
+                // 눈금 표시
+                d3.select("#myGraph5")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+offsetY+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(yScale)  //스케일 적용
+                        .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                        )
+                    // 가로 방향의 선을 표시
+                    d3.select("#myGraph5")
+                    .append("rect")	// rect 요소 추가
+                    .attr("class", "axis_x")	// CSS 클래스 지정
+                    .attr("width", svgWidth)	// 선의 굵기를 지정
+                    .attr("height", 1)	// 선의 높이를 지정
+                    .attr("transform", "translate("+offsetX+", "+(svgHeight-offsetY-0.5)+")")
+            }
+
+            // 꺽은선 그래프를 (영역 안을 칠한 꺽은선 그래프)
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var offsetX = 30;	// 가로 오프셋
+            var offsetY = 20;	// 세로 오프셋
+            var scale = 2.0;	// 2배 크기로 그리기
+            var dataSet1 = [10, 47, 65, 8, 64, 99, 75, 22, 63, 80];	// 데이터셋1
+            var margin = svgWidth /(dataSet1.length - 1);	// 꺾은선 그래프의 간격 계산
+            drawGraph2(dataSet1, "itemD", "basis");	// 곡선으로 표시
+            drawScale2();	// 눈금 표시
+            // 꺾은선 그래프를 표시하는 함수
+            function drawGraph2(dataSet, cssClassName, type){
+                // 영역 안이 좌표값을 계산하는 메서드
+                var area = d3.svg.area()	// svg 영역
+                .x(function(d, i){
+                        return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+                    })
+                .y0(function(d, i){
+                        return svgHeight - offsetY;	// 데이터로부터 Y 좌표 빼기
+                    })
+                .y1(function(d, i){
+                        return svgHeight - (d * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+                    })
+                .interpolate(type)	// 꺾은선 그래프의 모양 설정
+                // 꺾은선 그래프 그리기
+                var lineElements = d3.select("#myGraph6")
+                .append("path")	// 데이터 수만큼 path 요소가 추가됨
+                .attr("class", "line "+cssClassName)	// CSS 클래스 지정
+                .attr("d", area(dataSet))	//연속선 지정
+            }
+            // 그래프의 눈금을 표시하는 함수
+            function drawScale2(){
+                // 눈금을 표시하기 위한 D3 스케일 설정
+                var yScale = d3.scale.linear()  // 스케일 설정
+                .domain([0, 100])   // 원래 크기
+                .range([scale*100, 0]) // 실제 표시 크기
+                // 눈금 표시
+                d3.select("#myGraph6")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+offsetY+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(yScale)  //스케일 적용
+                        .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                        )
+                    // 가로 방향의 선을 표시
+                    d3.select("#myGraph6")
+                    .append("rect")	// rect 요소 추가
+                    .attr("class", "axis_x")	// CSS 클래스 지정
+                    .attr("width", svgWidth)	// 선의 굵기를 지정
+                    .attr("height", 1)	// 선의 높이를 지정
+                    .attr("transform", "translate("+offsetX+", "+(svgHeight-offsetY-0.5)+")")
+            }
+
+            // json 형식 데이타 처리 1
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var offsetX = 30;	// 가로 오프셋
+            var offsetY = 20;	// 세로 오프셋
+            var scale = 2.0;	// 2배 크기로 그리기
+            var dataSet = [
+                [
+                    { year : 2004, value : 10 },
+                    { year : 2005, value : 47 },
+                    { year : 2006, value : 65 },
+                    { year : 2007, value : 8 },
+                    { year : 2008, value : 64 },
+                    { year : 2009, value : 99 },
+                    { year : 2010, value : 75 },
+                    { year : 2011, value : 22 },
+                    { year : 2012, value : 63 },
+                    { year : 2013, value : 80 }
+                ],
+                [
+                    { year : 2004, value : 90 },
+                    { year : 2005, value : 77 },
+                    { year : 2006, value : 55 },
+                    { year : 2007, value : 48 },
+                    { year : 2008, value : 64 },
+                    { year : 2009, value : 90 },
+                    { year : 2010, value : 85 },
+                    { year : 2011, value : 42 },
+                    { year : 2012, value : 13 },
+                    { year : 2013, value : 40 }
+                ],
+                [
+                    { year : 2004, value : 50 },
+                    { year : 2005, value : 27 },
+                    { year : 2006, value : 45 },
+                    { year : 2007, value : 58 },
+                    { year : 2008, value : 84 },
+                    { year : 2009, value : 70 },
+                    { year : 2010, value : 45 },
+                    { year : 2011, value : 22 },
+                    { year : 2012, value : 30 },
+                    { year : 2013, value : 90 }
+                ]
+            ];
+            var margin = svgWidth /(dataSet[0].length - 1);	// 꺾은선 그래프의 간격 계산
+            drawGraph3(dataSet[0], "itemA", "linear");	// 데이터셋 안의 첫 번째 데이터
+            drawGraph3(dataSet[1], "itemB", "linear");	// 데이터셋 안의 두 번째 데이터
+            drawGraph3(dataSet[2], "itemC", "linear");	// 데이터셋의 세 번째 데이터
+            drawScale3();	// 눈금 표시
+            // 꺾은선 그래프를 표시하는 함수
+            function drawGraph3(dataSet, cssClassName, type){
+                // 꺾은선 그래프의 좌표를 계산하는 메서드
+                var line = d3.svg.line()	// svg의 선
+                .x(function(d, i){
+                        return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+                    })
+                .y(function(d, i){
+                        return svgHeight - (d.value * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+                    })
+                .interpolate(type)	// 꺾은선 그래프의 모양 설정
+                // 꺾은선 그래프 그리기
+                var lineElements = d3.select("#myGraph7")
+                .append("path")	// 데이터 수만큼 path 요소가 추가됨
+                .attr("class", "line "+cssClassName)	// CSS 클래스 지정
+                .attr("d", line(dataSet))	//연속선 지정
+            }
+            // 그래프의 눈금을 표시하는 함수
+            function drawScale3(){
+                // 눈금을 표시하기 위해 D3 스케일 설정
+                var yScale = d3.scale.linear()  // 스케일 설정
+                .domain([0, 100])   // 원래 크기
+                .range([scale*100, 0]) // 실제 표시 크기
+                // 눈금 표시
+                d3.select("#myGraph7")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+offsetY+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(yScale)  //스케일 적용
+                        .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                        )
+                    // 가로 방향의 선을 표시
+                    d3.select("#myGraph7")
+                    .append("rect")	// rect 요소 추가
+                    .attr("class", "axis_x")	// CSS 클래스 지정
+                    .attr("width", svgWidth)	// 선의 굵기를 지정
+                    .attr("height", 1)	// 선의 높이를 지정
+                    .attr("transform", "translate("+offsetX+", "+(svgHeight-offsetY-0.5)+")")
+            }
+
+            // json 형식 데이타 처리 2
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var offsetX = 30;	// 가로 오프셋
+            var offsetY = 20;	// 세로 오프셋
+            var scale = 2.0;	// 2배 크기로 그리기
+            var dataSet = [
+                { year : 2004, item1 : 10, item2 : 90, item3 : 50 },
+                { year : 2005, item1 : 47, item2 : 77, item3 : 27 },
+                { year : 2006, item1 : 65, item2 : 55, item3 : 45 },
+                { year : 2007, item1 : 8, item2 : 48, item3 : 58 },
+                { year : 2008, item1 : 64, item2 : 64, item3 : 84 },
+                { year : 2009, item1 : 99, item2 : 90, item3 : 70 },
+                { year : 2010, item1 : 75, item2 : 85, item3 : 45 },
+                { year : 2011, item1 : 22, item2 : 42, item3 : 22 },
+                { year : 2012, item1 : 63, item2 : 13, item3 : 30 },
+                { year : 2013, item1 : 80, item2 : 40, item3 : 90 }
+            ];
+            var margin = svgWidth /(dataSet.length - 1);	// 꺾은선 그래프의 간격 계산
+            drawGraph4(dataSet, "item1", "itemA", "linear");	// item1의 데이터
+            drawGraph4(dataSet, "item2", "itemB", "linear");	// item2의 데이터
+            drawGraph4(dataSet, "item3", "itemC", "linear");	// item3의 데이터
+            drawScale4();	// 눈금 표시
+            // 꺾은선 그래프를 표시하는 함수
+            function drawGraph4(dataSet, itemName, cssClassName, type){
+                // 꺾은선 그래프의 좌표를 계산하는 메서드
+                var line = d3.svg.line()	// svg의 선
+                .x(function(d, i){
+                        return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+                    })
+                .y(function(d, i){
+                        return svgHeight - (d[itemName] * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+                    })
+                .interpolate(type)	// 꺾은선 그래프의 모양 설정
+                // 꺾은선 그래프 그리기
+                var lineElements = d3.select("#myGraph8")
+                .append("path")	// 데이터 수만큼 path 요소가 추가됨
+                .attr("class", "line "+cssClassName)	// CSS 클래스 지정
+                .attr("d", line(dataSet))	//연속선 지정
+            }
+            // 그래프의 눈금을 표시하는 함수
+            function drawScale4(){
+                // 눈금을 표시하기 위해 D3 스케일 설정
+                var yScale = d3.scale.linear()  // 스케일 설정
+                .domain([0, 100])   // 원래 크기
+                .range([scale*100, 0]) // 실제 표시 크기
+                // 눈금 표시
+                d3.select("#myGraph8")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+offsetY+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(yScale)  //스케일 적용
+                        .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                        )
+                    // 가로 방향의 선을 표시
+                    d3.select("#myGraph8")
+                    .append("rect")	// rect 요소 추가
+                    .attr("class", "axis_x")	// CSS 클래스 지정
+                    .attr("width", svgWidth)	// 선의 굵기를 지정
+                    .attr("height", 1)	// 선의 높이를 지정
+                    .attr("transform", "translate("+offsetX+", "+(svgHeight-offsetY-0.5)+")")
+            }
+
+            // 데이타셋의 날짜와 대응
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var offsetX = 30;	// 가로 오프셋
+            var offsetY = 20;	// 세로 오프셋
+            var scale = 2.0;	// 2배 크기로 그리기
+            var dataSet = [
+                { year : 2004, item1 : 10, item2 : 90, item3 : 50 },
+                { year : 2005, item1 : 47, item2 : 77, item3 : 27 },
+                { year : 2006, item1 : 65, item2 : 55, item3 : 45 },
+                { year : 2007, item1 : 8, item2 : 48, item3 : 58 },
+                { year : 2008, item1 : 64, item2 : 64, item3 : 84 },
+                { year : 2009, item1 : 99, item2 : 90, item3 : 70 },
+                { year : 2010, item1 : 75, item2 : 85, item3 : 45 },
+                { year : 2011, item1 : 22, item2 : 42, item3 : 22 },
+                { year : 2012, item1 : 63, item2 : 13, item3 : 30 },
+                { year : 2013, item1 : 80, item2 : 40, item3 : 90 }
+            ];
+            var margin = svgWidth /(dataSet.length - 1);	// 꺾은선 그래프의 간격 계산
+            drawGraph5(dataSet, "item1", "itemA", "linear");	// item1의 데이터
+            drawGraph5(dataSet, "item2", "itemB", "linear");	// item2의 데이터
+            drawGraph5(dataSet, "item3", "itemC", "linear");	// item3의 데이터
+            drawScale5();	// 눈금 표시
+            // 꺾은선 그래프를 표시하는 함수
+            function drawGraph5(dataSet, itemName, cssClassName, type){
+                // 꺾은선 그래프의 좌표를 계산하는 메서드
+                var line = d3.svg.line()	// svg의 선
+                .x(function(d, i){
+                        return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+                    })
+                .y(function(d, i){
+                        return svgHeight - (d[itemName] * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+                    })
+                .interpolate(type)	// 꺾은선 그래프의 모양 설정
+                // 꺾은선 그래프 그리기
+                var lineElements = d3.select("#myGraph9")
+                .append("path")	// 데이터 수만큼 path 요소가 추가됨
+                .attr("class", "line "+cssClassName)	// CSS 클래스 지정
+                .attr("d", line(dataSet))	//연속선 지정
+            }
+            // 그래프의 눈금을 표시하는 함수
+            function drawScale5(){
+                // 눈금을 표시하기 위해 D3 스케일 설정
+                var yScale = d3.scale.linear()  // 스케일 설정
+                .domain([0, 100])   // 원래 크기
+                .range([scale*100, 0]) // 실제 표시 크기
+                // 눈금 표시
+                d3.select("#myGraph9")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+offsetY+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(yScale)  //스케일 적용
+                        .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                        )
+                // 가로 눈금을 표시하기 위해 D3 스케일 설정
+                var xScale = d3.scale.linear()  // 스케일 설정
+                .domain([2004, 2013])	// 2004년부터 2013년까지
+                .range([0, svgWidth]) // 표시 크기
+                // 가로 눈금 표시
+                d3.select("#myGraph9")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+(svgHeight - offsetY)+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(xScale)  //스케일 적용
+                        .orient("bottom") //눈금 표시 위치를 왼쪽으로 지정
+                        .ticks(5)	// 2년에 1번 표시함
+                        )
+            }
+
+            // 연도 레이블 ~년~월 로 표시 
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var offsetX = 30;	// 가로 오프셋
+            var offsetY = 20;	// 세로 오프셋
+            var scale = 2.0;	// 2배 크기로 그리기
+            var dataSet = [
+                { year : 2004, item1 : 10, item2 : 90, item3 : 50 },
+                { year : 2005, item1 : 47, item2 : 77, item3 : 27 },
+                { year : 2006, item1 : 65, item2 : 55, item3 : 45 },
+                { year : 2007, item1 : 8, item2 : 48, item3 : 58 },
+                { year : 2008, item1 : 64, item2 : 64, item3 : 84 },
+                { year : 2009, item1 : 99, item2 : 90, item3 : 70 },
+                { year : 2010, item1 : 75, item2 : 85, item3 : 45 },
+                { year : 2011, item1 : 22, item2 : 42, item3 : 22 },
+                { year : 2012, item1 : 63, item2 : 13, item3 : 30 },
+                { year : 2013, item1 : 80, item2 : 40, item3 : 90 }
+            ];
+            var margin = svgWidth /(dataSet.length - 1);	// 꺾은선 그래프의 간격 계산
+            drawGraph6(dataSet, "item1", "itemA", "linear");	// item1의 데이터
+            drawGraph6(dataSet, "item2", "itemB", "linear");	// item2의 데이터
+            drawGraph6(dataSet, "item3", "itemC", "linear");	// item3의 데이터
+            drawScale6();	// 눈금 표시
+            // 꺾은선 그래프를 표시하는 함수
+            function drawGraph6(dataSet, itemName, cssClassName, type){
+                // 꺾은선 그래프의 좌표를 계산하는 메서드
+                var line = d3.svg.line()	// svg의 선
+                .x(function(d, i){
+                        return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+                    })
+                .y(function(d, i){
+                        return svgHeight - (d[itemName] * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+                    })
+                .interpolate(type)	// 꺾은선 그래프의 모양 설정
+                // 꺾은선 그래프 그리기
+                var lineElements = d3.select("#myGraph10")
+                .append("path")	// 데이터 수만큼 path 요소가 추가됨
+                .attr("class", "line "+cssClassName)	// CSS 클래스 지정
+                .attr("d", line(dataSet))	//연속선 지정
+            }
+            // 그래프의 눈금을 표시하는 함수
+            function drawScale6(){
+                // 눈금을 표시하기 위해 D3 스케일 설정
+                var yScale = d3.scale.linear()  // 스케일 설정
+                .domain([0, 100])   // 원래 크기
+                .range([scale*100, 0]) // 실제 표시 크기
+                // 눈금 표시
+                d3.select("#myGraph10")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+offsetY+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(yScale)  //스케일 적용
+                        .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                        )
+                // 가로 눈금을 표시하기 위해 D3 스케일 설정
+                var xScale = d3.time.scale()  // 스케일 설정
+                .domain([new Date("2004/1/1"), new Date("2013/1/1")])	// 2004년부터 2013년까지
+                .range([0, svgWidth]) // 표시 크기
+                // 가로 눈금 표시
+                d3.select("#myGraph10")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+(svgHeight - offsetY)+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(xScale)  //스케일 적용
+                        .orient("bottom") //눈금 표시 위치를 왼쪽으로 지정
+                        .ticks(5)	// 2년에 1번 표시함
+                        .tickFormat(function(d, i){
+                                var fmtFunc = d3.time.format("%Y년%m월");	// 변환 함수
+                                return fmtFunc(d);	// 변환한 결과를 반환
+                            })
+                        )
+            }
+
+            // 연도 레이블 ~년~월 로 표시  (세로로 표시)
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var offsetX = 30;	// 가로 오프셋
+            var offsetY = 20;	// 세로 오프셋
+            var scale = 2.0;	// 2배 크기로 그리기
+            var dataSet = [
+                { year : 2004, item1 : 10, item2 : 90, item3 : 50 },
+                { year : 2005, item1 : 47, item2 : 77, item3 : 27 },
+                { year : 2006, item1 : 65, item2 : 55, item3 : 45 },
+                { year : 2007, item1 : 8, item2 : 48, item3 : 58 },
+                { year : 2008, item1 : 64, item2 : 64, item3 : 84 },
+                { year : 2009, item1 : 99, item2 : 90, item3 : 70 },
+                { year : 2010, item1 : 75, item2 : 85, item3 : 45 },
+                { year : 2011, item1 : 22, item2 : 42, item3 : 22 },
+                { year : 2012, item1 : 63, item2 : 13, item3 : 30 },
+                { year : 2013, item1 : 80, item2 : 40, item3 : 90 }
+            ];
+            var margin = svgWidth /(dataSet.length - 1);	// 꺾은선 그래프의 간격 계산
+            drawGraph7(dataSet, "item1", "itemA", "linear");	// item1의 데이터
+            drawGraph7(dataSet, "item2", "itemB", "linear");	// item2의 데이터
+            drawGraph7(dataSet, "item3", "itemC", "linear");	// item3의 데이터
+            drawScale7();	// 눈금 표시
+            // 꺾은선 그래프를 표시하는 함수
+            function drawGraph7(dataSet, itemName, cssClassName, type){
+                // 꺾은선 그래프의 좌표를 계산하는 메서드
+                var line = d3.svg.line()	// svg의 선
+                .x(function(d, i){
+                        return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+                    })
+                .y(function(d, i){
+                        return svgHeight - (d[itemName] * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+                    })
+                .interpolate(type)	// 꺾은선 그래프의 모양 설정
+                // 꺾은선 그래프 그리기
+                var lineElements = d3.select("#myGraph11")
+                .append("path")	// 데이터 수만큼 path 요소가 추가됨
+                .attr("class", "line "+cssClassName)	// CSS 클래스 지정
+                .attr("d", line(dataSet))	//연속선 지정
+            }
+            // 그래프의 눈금을 표시하는 함수
+            function drawScale7(){
+                // 눈금을 표시하기 위해 D3 스케일 설정
+                var yScale = d3.scale.linear()  // 스케일 설정
+                .domain([0, 100])   // 원래 크기
+                .range([scale*100, 0]) // 실제 표시 크기
+                // 눈금 표시
+                d3.select("#myGraph11")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+offsetY+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(yScale)  //스케일 적용
+                        .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                        )
+                // 가로 눈금을 표시하기 위해 D3 스케일 설정
+                var xScale = d3.time.scale()  // 스케일 설정
+                .domain([new Date("2004/1/1"), new Date("2013/1/1")])	// 2004년부터 2013년까지
+                .range([0, svgWidth]) // 표시 크기
+                // 가로 눈금 표시
+                d3.select("#myGraph11")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+(svgHeight - offsetY)+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(xScale)  //스케일 적용
+                        .orient("bottom") //눈금 표시 위치를 왼쪽으로 지정
+                        .ticks(10)	// 1년마다 표시
+                        .tickFormat(function(d, i){
+                                var fmtFunc = d3.time.format("%Y년%m월");	// 변환 함수
+                                return fmtFunc(d);	// 변환한 결과를 반환
+                            })
+                        )
+                    .selectAll("text")	// 눈금의 문자를 대상으로 처리
+                    .attr("transform", "rotate(90)")	// 90도 회전
+                    .attr("dx", "0.7em")	// 위치 조정
+                    .attr("dy", "-0.4em")	// 위치 조정
+                    .style("text-anchor", "start")	// 표시 위치 지정
+            }
+
+            // 버튼 클릭으로 그래프의 표시 범위 변경
+            d3.json("data_line.json", function(error, data){
+            var dataSet = [ ];	// 데이터셋
+            // SVG 요소의 넓이와 높이를 구함
+            var svgEle = document.getElementById("myGraph12");
+            var svgWidth = window.getComputedStyle(svgEle, null).getPropertyValue("width");
+            var svgHeight = window.getComputedStyle(svgEle, null).getPropertyValue("height");
+            svgWidth = parseFloat(svgWidth) - 60;	// 값에는 단위가 있으므로 단위를 삭제
+            svgHeight = parseFloat(svgHeight) - 60;	// 값에는 단위가 있으므로 단위를 삭제
+            var offsetX = 30;	// 가로 오프셋
+            var offsetY = 20;	// 세로 오프셋
+            var scale = 2.0;	// 2배 크기로 그리기
+            var rangeYear = 10;	// 10년분을 표시
+            // 최댓값과 최솟값 연도를 구함
+            var year = d3.extent(data, function(d){
+                return d.year;
+            });
+            var startYear = year[0];	// 최초 연도
+            var currentYear = 2000;	// 최초의 표시 기준 연도
+            var margin = svgWidth /(rangeYear - 1);	// 꺾은선 그래프의 간격 계산
+            // 처음 그래프 표시
+            pickupData(data, currentYear-startYear);	// 표시 범위의 데이터를 입력
+            drawGraph8(dataSet, "item1", "itemA", "linear");	// item1의 데이터
+            drawGraph8(dataSet, "item2", "itemB", "linear");	// item2의 데이터
+            drawGraph8(dataSet, "item3", "itemC", "linear");	// item3의 데이터
+            drawScale8();	// 눈금 표시
+            // 꺾은선 그래프를 표시하는 함수
+            function drawGraph8(dataSet, itemName, cssClassName, type){
+                // 꺾은선 그래프의 좌표를 계산하는 메서드
+                var line = d3.svg.line()	// svg의 선
+                .x(function(d, i){
+                        return offsetX + i * margin;	// X 좌표는 표시 순서×간격
+                    })
+                .y(function(d, i){
+                        return svgHeight - (d[itemName] * scale) - offsetY;	// 데이터로부터 Y 좌표 빼기
+                    })
+                .interpolate(type)	// 꺾은선 그래프의 모양 설정
+                // 꺾은선 그래프 그리기
+                var lineElements = d3.select("#myGraph12")
+                .append("path")	// 데이터 수만큼 path 요소가 추가됨
+                .attr("class", "line "+cssClassName)	// CSS 클래스 지정
+                .attr("d", line(dataSet))	//연속선 지정
+            }
+            // 그래프의 눈금을 표시하는 함수
+            function drawScale8(){
+                // 눈금을 표시하기 위해 D3 스케일 설정
+                var yScale = d3.scale.linear()  // 스케일 설정
+                .domain([0, 100])   // 원래 크기
+                .range([scale*100, 0]) // 실제 표시 크기
+                // 눈금 표시
+                d3.select("#myGraph12")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+((100-(scale-1)*100)+offsetY)+")")	// ●변경
+                    .call(
+                            d3.svg.axis()
+                        .scale(yScale)  //스케일 적용
+                        .orient("left") //눈금 표시 위치를 왼쪽으로 지정
+                        )
+                // 가로 눈금을 표시하기 위해 D3 스케일 설정
+                var xScale = d3.time.scale()  // 스케일 설정
+                .domain([new Date(currentYear+"/1/1"), new Date((currentYear + rangeYear - 1)+"/1/1")])	// 표시 범위의 연도를 지정
+                .range([0, svgWidth]) // 표시 크기
+                // 가로 눈금 표시
+                d3.select("#myGraph12")	// SVG 요소를 지정
+                    .append("g")	// g 요소 추가. 이것이 눈금을 표시하는 요소가 됨
+                    .attr("class", "axis")	// CSS 클래스 지정
+                    .attr("transform", "translate("+offsetX+", "+(svgHeight - offsetY)+")")
+                    .call(
+                            d3.svg.axis()
+                        .scale(xScale)  //스케일 적용
+                        .orient("bottom") //눈금 표시 위치를 왼쪽으로 지정
+                        .ticks(10)	// 1년마다 표시
+                        .tickFormat(function(d, i){
+                                var fmtFunc = d3.time.format("%Y년%m월");	// 변환 함수
+                                return fmtFunc(d);	// 변환한 결과를 반환
+                            })
+                        )
+                    .selectAll("text")	// 눈금 문자를 대상으로 처리
+                    .attr("transform", "rotate(90)")	// 90도 회전
+                    .attr("dx", "0.7em")	// 위치 조정
+                    .attr("dy", "-0.4em")	// 위치 조정
+                    .style("text-anchor", "start")	// 표시 위치 지정
+            }
+            // JSON 데이터로부터 표시할 범위의 데이터셋을 추출하고 SVG 요소 안을 삭제
+            function pickupData(data, start){
+                dataSet = [ ];	// 데이터셋 삭제
+                for(var i=0; i<rangeYear; i++){	// 표시할 범위의 데이터를 입력
+                    dataSet[i] = data[start + i];
+                }
+                d3.select("#myGraph12").selectAll("*").remove();	// SVG 요소 안 삭제
+            }
+            // <이전> 버튼에 이벤트를 할당
+            d3.select("#prev").on("click", function(){
+                if (currentYear > year[0]){	// 최솟값(연)보다 클 때는 연도를 1 감소함
+                    currentYear = currentYear - 1;
+                }
+                // 그래프 표시
+                pickupData(data, currentYear-startYear);	// 표시 범위의 데이터를 입력
+                drawGraph8(dataSet, "item1", "itemA", "linear");
+                drawGraph8(dataSet, "item2", "itemB", "linear");
+                drawGraph8(dataSet, "item3", "itemC", "linear");
+                drawScale8();
+            })
+            // <다음> 버튼에 이벤트를 할당
+            d3.select("#next").on("click", function(){
+                if (currentYear <= year[1]-rangeYear){	// 최댓값(연)+범위보다 작다면 연도를 1 증가함
+                    currentYear = currentYear + 1;
+                }
+                // 그래프 표시
+                pickupData(data, currentYear-startYear);	// 표시 범위의 데이터를 입력
+                drawGraph8(dataSet, "item1", "itemA", "linear");
+                drawGraph8(dataSet, "item2", "itemB", "linear");
+                drawGraph8(dataSet, "item3", "itemC", "linear");
+                drawScale8();
+            })
+        });
+        </script>
+	</body>
+</html>
