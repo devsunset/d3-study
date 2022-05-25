@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Graph - 원 그래프와 파이차트</title>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<style>
+			svg { width: 320px; height: 240px; border: 1px solid black; }
+            .pie { fill: orange; stroke: black; }
+            .total { font-size: 9pt; text-anchor: middle; }
+            .pieNum { font-size: 10pt; text-anchor: middle; }
+		</style>
+	</head>
+	<body>
+		<h1>원 그래프 표시</h1>
+		<svg id="myGraph1"></svg>
+        <svg id="myGraph2"></svg>
+        <svg id="myGraph3"></svg>
+        <svg id="myGraph4"></svg>
+        <svg id="myGraph5"></svg>
+        <svg id="myGraph6"></svg>
+        <svg id="myGraph7"></svg>
+        <svg id="myGraph8"></svg>
+        <svg id="myGraph9"></svg>
+        <svg id="myGraph"></svg>
+		<form>
+			<select id="year">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+			</select>
+		</form>
+		<script>
+            // 원 그래프 생성
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var dataSet = [50, 30, 12, 5, 3];	// 데이터셋. 비율을 나타냄
+            // 원 그래프의 좌표값을 계산하는 메서드
+            var pie = d3.layout.pie()	// 원 그래프 레이아웃
+            // 원 그래프의 외경, 내경 설정
+            var arc = d3.svg.arc().innerRadius(0).outerRadius(100);
+            // 원 그래프 그리기
+            var pieElements = d3.select("#myGraph1")
+            .selectAll("path")	// path 요소 지정
+            .data(pie(dataSet))	// 데이터를 요소에 연결
+            // 데이터 추가
+            pieElements.enter()	// 데이터 수만큼 반복
+            .append("path")	// 데이터의 수만큼 path 요소가 추가됨
+            .attr("class", "pie")	// CSS 클래스 설정
+            .attr("d", arc)	//부채꼴 지정
+            .attr("transform", "translate("+svgWidth/2+", "+svgHeight/2+")")    // 원 그래프의 중심으로 함
+
+            // 원 그래프 색 구분 (색상 지정)
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var dataSet = [50, 30, 12, 5, 3];	// 데이터셋. 비율을 나타냄
+            // 원 그래프의 좌표값을 계산하는 메서드
+            var pie = d3.layout.pie()	// 원 그래프 레이아웃
+            // 원 그래프의 안쪽 반지름, 바깥쪽 반지름 설정
+            var arc = d3.svg.arc().innerRadius(0).outerRadius(100);
+            // 원 그래프 그리기
+            var pieElements = d3.select("#myGraph2")
+            .selectAll("path")	// path 요소 지정
+            .data(pie(dataSet))	// 데이터를 요소에 연결
+            // 데이터 추가
+            pieElements.enter()	// 데이터 수만큼 반복
+            .append("path")	// 데이터의 수만큼 path 요소가 추가됨
+            .attr("class", "pie")	// CSS 클래스 설정
+            .attr("d", arc)	// 부채꼴 지정
+            .attr("transform", "translate("+svgWidth/2+", "+svgHeight/2+")")    // 원 그래프의 중심으로 함
+            .style("fill", function(d, i){
+                    return ["red", "orange", "yellow", "cyan", "#3f3"][i];	// 배열 안의 색을 반환
+                })
+
+            // 원 그래프 색 구분 (표준 10색)
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var dataSet = [50, 30, 12, 5, 3];	// 데이터셋. 비율을 나타냄
+            var color = d3.scale.category10();  // D3.js가 준비한 표준 10색을 지정
+            // 원 그래프의 좌표값을 계산하는 메서드
+            var pie = d3.layout.pie()	// 원 그래프 레이아웃
+            // 원 그래프의 안쪽 반지름, 바깥쪽 반지름 설정
+            var arc = d3.svg.arc().innerRadius(0).outerRadius(100);
+            // 원 그래프 그리기
+            var pieElements = d3.select("#myGraph3")
+            .selectAll("path")	// path 요소 지정
+            .data(pie(dataSet))	// 데이터를 요소에 연결
+            // 데이터 추가
+            pieElements.enter()	// 데이터 수만큼 반복
+            .append("path")	// 데이터의 수만큼 path 요소가 추가됨
+            .attr("class", "pie")	// CSS 클래스 설정
+            .attr("d", arc)	// 부채꼴 지정
+            .attr("transform", "translate("+svgWidth/2+", "+svgHeight/2+")")    // 원 그래프의 중심으로 함
+            .style("fill", function(d, i){
+                    return color(i);	// 표준 10색 중 색을 반환
+                })
+
+            // 원 그래프 색 구분 (표준 20색) d3.scale.category20()
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var dataSet = [5, 10, 8, 12, 16, 20, 12, 18, 6, 9, 10, 6, 15, 20];	// 데이터셋. 비율을 나타냄
+            var color = d3.scale.category20();  // D3.js가 준비한 표준 20색을 지정 (d3.scale.category20 or d3.scale.category20b)
+            // 원 그래프의 좌표값을 계산하는 메서드
+            var pie = d3.layout.pie()	// 원 그래프 레이아웃
+            // 원 그래프의 안쪽 반지름, 바깥쪽 반지름 설정
+            var arc = d3.svg.arc().innerRadius(0).outerRadius(100);
+            // 원 그래프 그리기
+            var pieElements = d3.select("#myGraph4")
+            .selectAll("path")	// path 요소 지정
+            .data(pie(dataSet))	// 데이터를 요소에 연결
+            // 데이터 추가
+            pieElements.enter()	// 데이터 수만큼 반복
+            .append("path")	// 데이터의 수만큼 path 요소가 추가됨
+            .attr("class", "pie")	// CSS 클래스 설정
+            .attr("d", arc)	// 부채꼴 지정
+            .attr("transform", "translate("+svgWidth/2+", "+svgHeight/2+")")    // 원 그래프의 중심으로 함
+            .style("fill", function(d, i){
+                    return color(i);	// 표준 20색 중 색을 반환
+                })
+
+            // 원 그래프 색 구분 (표준 20색) d3.scale.category20b()
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var dataSet = [5, 10, 8, 12, 16, 20, 12, 18, 6, 9, 10, 6, 15, 20];	// 데이터셋. 비율을 나타냄
+            var color = d3.scale.category20b();  // D3.js가 준비한 표준 20색을 지정
+            // 원 그래프의 좌표값을 계산하는 메서드
+            var pie = d3.layout.pie()	// 원 그래프 레이아웃
+            // 원 그래프의 안쪽 반지름, 바깥쪽 반지름 설정
+            var arc = d3.svg.arc().innerRadius(0).outerRadius(100);
+            // 원 그래프 그리기
+            var pieElements = d3.select("#myGraph5")
+            .selectAll("path")	// path 요소 지정
+            .data(pie(dataSet))	// 데이터를 요소에 연결
+            // 데이터 추가
+            pieElements.enter()	// 데이터 수만큼 반복
+            .append("path")	// 데이터의 수만큼 path 요소가 추가됨
+            .attr("class", "pie")	// CSS 클래스 설정
+            .attr("d", arc)	// 부채꼴 지정
+            .attr("transform", "translate("+svgWidth/2+", "+svgHeight/2+")")    // 원 그래프의 중심으로 함
+            .style("fill", function(d, i){
+                    return color(i);	// 표준 20색 중 색을 반환
+                })
+
+            // 원 그래프 애니메이션
+            var svgWidth = 320;	// SVG 요소의 넓이
+            var svgHeight = 240;	// SVG 요소의 높이
+            var dataSet = [50, 30, 12, 5, 3];	// 데이터셋. 비율을 나타냄
+            var color = d3.scale.category10();  // D3.js가 준비한 표준 10색을 지정
+            // 원 그래프의 좌표값을 계산하는 메서드
+            var pie = d3.layout.pie()	// 원 그래프 레이아웃
+            // 원 그래프의 안쪽 반지름, 바깥쪽 반지름 설정
+            var arc = d3.svg.arc().innerRadius(0).outerRadius(100)
+            // 원 그래프 그리기
+            var pieElements = d3.select("#myGraph6")
+            .selectAll("path")	// path 요소 지정
+            .data(pie(dataSet))	// 데이터를 요소에 연결
+            // 데이터 추가
+            pieElements.enter()	// 데이터 수만큼 반복
+            .append("path")	// 데이터의 수만큼 path 요소가 추가됨
+            .attr("class", "pie")	// CSS 클래스 설정
+            .attr("transform", "translate("+svgWidth/2+", "+svgHeight/2+")")    // 원 그래프의 중심으로 함
+            .style("fill", function(d, i){
+                    return color(i);	// 표준 10색 중 색을 반환
+                })
+            .transition()
+            .duration(1000)
+            .delay(function(d,i){   // 그릴 원 그래프의 시간을 어긋나게 표시
+                    return i*1000;
+                })
+            .attrTween("d", function(d, i){	// 보간 처리
+                    var interpolate = d3.interpolate(
+                        { startAngle : d.startAngle, endAngle : d.startAngle }, // 각 부분의 시작 각도
+                        { startAngle : d.startAngle, endAngle : d.endAngle }    // 각 부분의 종료 각도
+                    );
+                    return function(t){
+                        return arc(interpolate(t)); // 시간에 따라 처리
+                    }
+                })
+
+                // 원 그래프 애니메이션 
+                var svgWidth = 320;	// SVG 요소의 넓이
+                var svgHeight = 240;	// SVG 요소의 높이
+                var dataSet = [50, 30, 12, 5, 3];	// 데이터셋. 비율을 나타냄
+                var color = d3.scale.category10();  // D3.js가 준비한 표준 10색을 지정
+                // 원 그래프의 좌표값을 계산하는 메서드
+                var pie = d3.layout.pie()	// 원 그래프 레이아웃
+                // 원 그래프의 안쪽 반지름, 바깥쪽 반지름 설정
+                var arc = d3.svg.arc().innerRadius(0).outerRadius(100)
+                // 원 그래프 그리기
+                pieElements = d3.select("#myGraph7")
+                .selectAll("path")	// path 요소 지정
+                .data(pie(dataSet))	// 데이터를 요소에 연결
+                // 데이터 추가
+                pieElements.enter()	// 데이터 수만큼 반복
+                .append("path")	// 데이터의 수만큼 path 요소가 추가됨
+                .attr("class", "pie")	// CSS 클래스 설정
+                .attr("transform", "translate("+svgWidth/2+", "+svgHeight/2+")")    // 원 그래프의 중심으로 함
+                .style("fill", function(d, i){
+                        return color(i);	// 표준 10색 중 색을 반환
+                    })
+                .transition()
+                .duration(1000)
+                .delay(function(d,i){   // 그릴 원 그래프의 시간을 어긋나게 표시
+                        return i*1000;
+                    })
+                .ease("linear")	// 직선적인 움직임으로 변경
+                .attrTween("d", function(d, i){	// 보간 처리
+                        var interpolate = d3.interpolate(
+                            { startAngle : d.startAngle, endAngle : d.startAngle }, // 각 부분의 시작 각도
+                            { startAngle : d.startAngle, endAngle : d.endAngle }    // 각 부분의 종료 각도
+                        );
+                        return function(t){
+                            return arc(interpolate(t)); // 시간에 따라 처리
+                        }
+                    })
+
+                    // 원 그래프에 숫자와 텍스트 표시 (합계)
+                    var svgWidth = 320;	// SVG 요소의 넓이
+                    var svgHeight = 240;	// SVG 요소의 높이
+                    var dataSet = [50, 30, 12, 5, 3];	// 데이터셋. 비율을 나타냄
+                    var color = d3.scale.category10();  // D3.js가 준비한 표준 10색을 지정
+                    // 원 그래프의 좌표값을 계산하는 메서드
+                    var pie = d3.layout.pie()	// 원 그래프 레이아웃
+                    // 원 그래프의 안쪽 반지름, 바깥쪽 반지름 설정
+                    var arc = d3.svg.arc().innerRadius(30).outerRadius(100)
+                    // 원 그래프 그리기
+                    var pieElements = d3.select("#myGraph8")
+                    .selectAll("path")	// path 요소 지정
+                    .data(pie(dataSet))	// 데이터를 요소에 연결
+                    // 데이터 추가
+                    pieElements.enter()	// 데이터 수만큼 반복
+                    .append("path")	// 데이터의 수만큼 path 요소가 추가됨
+                    .attr("class", "pie")	// CSS 클래스 설정
+                    .attr("transform", "translate("+svgWidth/2+", "+svgHeight/2+")")    // 원 그래프의 중심으로 함
+                    .style("fill", function(d, i){
+                            return color(i);	// 표준 10색 중 색을 반환
+                        })
+                    .transition()
+                    .duration(200)
+                    .delay(function(d,i){   // 그릴 원 그래프의 시간을 어긋나게 표시
+                            return i*200;
+                        })
+                    .ease("linear")	// 직선적인 움직임으로 변경
+                    .attrTween("d", function(d, i){	// 보간 처리
+                            var interpolate = d3.interpolate(
+                                { startAngle : d.startAngle, endAngle : d.startAngle }, // 각 부분의 시작 각도
+                                { startAngle : d.startAngle, endAngle : d.endAngle }    // 각 부분의 종료 각도
+                            );
+                            return function(t){
+                                return arc(interpolate(t)); // 시간에 따라 처리
+                            }
+                        })
+                    // 합계의 수와 문자를 표시
+                    var textElements = d3.select("#myGraph8")
+                    .append("text")	// text 요소 추가
+                    .attr("class", "total")	// CSS 클래스 설정
+                    .attr("transform", "translate("+svgWidth/2+", "+(svgHeight/2+5)+")")    // 가운데에 표시
+                    .text("합계:" + d3.sum(dataSet))	// 합계 표시
+
+                     // 원 그래프에 숫자와 텍스트 표시 (각 영역 값 표시)
+                     // ●는 변경한 곳（편집용）
+                    var svgWidth = 320;	// SVG 요소의 넓이
+                    var svgHeight = 240;	// SVG 요소의 높이
+                    var dataSet = [50, 30, 12, 5, 3];	// 데이터셋. 비율을 나타냄
+                    var color = d3.scale.category10();  // D3.js가 준비한 표준 10색을 지정
+                    // 원 그래프의 좌표값을 계산하는 메서드
+                    var pie = d3.layout.pie()	// 원 그래프 레이아웃
+                    .value(function(d, i){ return d; })	// 데이터셋의 데이터 반환
+                    // 원 그래프의 안쪽 반지름, 바깥쪽 반지름 설정
+                    var arc = d3.svg.arc().innerRadius(30).outerRadius(100)
+                    // 원 그래프 그리기
+                    var pieElements = d3.select("#myGraph9")
+                    .selectAll("g")	// g 요소 지정●
+                    .data(pie(dataSet))	// 데이터를 요소에 연결
+                    .enter()
+                    .append("g")	// 중심 계산을 위해 그룹화하기●
+                    .attr("transform", "translate("+svgWidth/2+", "+svgHeight/2+")")    // 원 그래프의 중심으로 함●
+                    // 데이터 추가
+                    pieElements	// 데이터 수만큼 반복
+                    .append("path")	// 데이터의 수만큼 path 요소가 추가됨
+                    .attr("class", "pie")	// CSS 클래스 설정
+                    .style("fill", function(d, i){
+                            return color(i);	// 표준 10색 중 색을 반환
+                        })
+                    .transition()
+                    .duration(200)
+                    .delay(function(d,i){   // 그릴 원 그래프의 시간을 어긋나게 표시
+                            return i*200;
+                        })
+                    .ease("linear")	// 직선적인 움직임으로 변경
+                    .attrTween("d", function(d, i){	// 보간 처리
+                            var interpolate = d3.interpolate(
+                                { startAngle : d.startAngle, endAngle : d.startAngle }, // 각 부분의 시작 각도
+                                { startAngle : d.startAngle, endAngle : d.endAngle }    // 각 부분의 종료 각도
+                            );
+                            return function(t){
+                                return arc(interpolate(t)); // 시간에 따라 처리
+                            }
+                        })
+                    // 합계와 문자 표시
+                    var textElements = d3.select("#myGraph9")
+                    .append("text")	// text 요소 추가
+                    .attr("class", "total")	// CSS 클래스 설정
+                    .attr("transform", "translate("+svgWidth/2+", "+(svgHeight/2+5)+")")    // 중심에 표시
+                    .text("합계:" + d3.sum(dataSet))	// 합계 표시
+                    // 숫자를 부채꼴의 가운데에 표시●↓
+                    pieElements
+                    .append("text")	// 데이터 수만큼 text 요소가 추가됨
+                    .attr("class", "pieNum")	// CSS 클래스 설정
+                    .attr("transform", function(d, i){
+                            return "translate("+arc.centroid(d)+")";    // 부채꼴의 중심으로 함(무게 중심 계산)
+                        })
+                    .text(function(d, i){
+                            return d.value;	// 값 표시
+                        })
+
+                    // csv 파일로 부터 데이타 읽기
+                    drawPie("data_pie1.csv");
+                    // 선택 메뉴가 선택되었을 때의 처리
+                    d3.select("#year").on("change", function(){
+                        d3.select("#myGraph").selectAll("*").remove();	// svg 안의 모든 요소를 삭제
+                        drawPie("data_pie"+this.value+".csv", this.value);	// 지정된 연도의 데이터를 불러와 원 그래프 표시
+                    });
+                    function drawPie(filename){
+                    // 데이터셋은 CSV 파일
+                        d3.csv(filename, function(error, data){
+                            var dataSet = [ ];	// 데이터를 저장할 배열 변수
+                            for(var i in data[0]){	// 최초 데이터를 처리
+                                dataSet.push(data[0][i]);	// 가로 한 줄 모두를 한꺼번에 입력
+                            }
+                            // SVG 요소의 넓이와 높이를 구함
+                            var svgEle = document.getElementById("myGraph");
+                            var svgWidth = window.getComputedStyle(svgEle, null).getPropertyValue("width");
+                            var svgHeight = window.getComputedStyle(svgEle, null).getPropertyValue("height");
+                            svgWidth = parseFloat(svgWidth);	// 값에는 단위가 붙어 있으므로 단위를 삭제
+                            svgHeight = parseFloat(svgHeight);	// 값에는 단위가 붙어 있으므로 단위를 삭제
+                            // 원 그래프의 좌표값을 계산하는 메서드
+                            var pie = d3.layout.pie()	// 원 그래프 레이아웃
+                            // 원 그래프의 안쪽 반지름, 바깥쪽 반지름 설정
+                            var arc = d3.svg.arc().innerRadius(30).outerRadius(100)
+                            // 원 그래프 그리기
+                            var pieElements = d3.select("#myGraph")
+                            .selectAll("g")	// g 요소 지정
+                            .data(pie(dataSet))	// 데이터를 요소에 연결
+                            .enter()
+                            .append("g")	// 무게 중심 계산을 위하 그룹화하기
+                            .attr("transform", "translate("+svgWidth/2+", "+svgHeight/2+")")    // 원 그래프의 중심으로 함
+                            // 데이터 추가
+                            pieElements	// 데이터 수만큼 반복
+                            .append("path")	// 데이터의 수만큼 path 요소가 추가됨
+                            .attr("class", "pie")	// CSS 클래스 설정
+                            .style("fill", function(d, i){
+                                    return ["#ff3344", "#ff7328", "#d3d4d5", "#dfd"][i];	// 통신사의 색을 반환
+                                })
+                            .transition()
+                            .duration(200)
+                            .delay(function(d,i){   // 그릴 원 그래프의 시간을 어긋나게 표시
+                                    return i*200;
+                                })
+                            .ease("linear")	// 직선적인 움직임으로 변경
+                            .attrTween("d", function(d, i){	// 보간 처리
+                                    var interpolate = d3.interpolate(
+                                        { startAngle : d.startAngle, endAngle : d.startAngle }, // 각 부분의 시작 각도
+                                        { startAngle : d.startAngle, endAngle : d.endAngle }    // 각 부분의 종료 각도
+                                    );
+                                    return function(t){
+                                        return arc(interpolate(t)); // 시간에 따라 처리
+                                    }
+                                })
+                            // 합계와 문자 표시
+                            var textElements = d3.select("#myGraph")
+                            .append("text")	// text 요소 추가
+                            .attr("class", "total")	// CSS 클래스 설정
+                            .attr("transform", "translate("+svgWidth/2+", "+(svgHeight/2+5)+")")    // 가운데에 표시
+                            .text("점유율")	// 문자 표시
+                            // 숫자를 부채꼴의 가운데 표시
+                            pieElements
+                            .append("text")	// 데이터의 수만큼 text 요소가 추가됨
+                            .attr("class", "pieNum")	// CSS 클래스 설정
+                            .attr("transform", function(d, i){
+                                    return "translate("+arc.centroid(d)+")";    // 부채꼴의 중심으로 함
+                                })
+                            .text(function(d, i){
+                                    return d.value;	// 값 표시
+                                })
+                        });
+                    }
+        </script>
+	</body>
+</html>

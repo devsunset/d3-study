@@ -61,6 +61,7 @@ Graph
 세로형 막대그래프
 
 [index07.html](https://github.com/devsunset/d3-work/blob/main/Graph/index07.html)
+원 그래프와 파이차트
 
 [index08.html](https://github.com/devsunset/d3-work/blob/main/Graph/index08.html)
 
