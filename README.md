@@ -64,18 +64,45 @@ Graph
 원 그래프와 파이차트
 
 [index08.html](https://github.com/devsunset/d3-work/blob/main/Graph/index08.html)
+꺽은선 그래프
 
 [index09.html](https://github.com/devsunset/d3-work/blob/main/Graph/index09.html)
+산포도
 
 [index10.html](https://github.com/devsunset/d3-work/blob/main/Graph/index10.html)
+히스토그램
 
 [index11.html](https://github.com/devsunset/d3-work/blob/main/Graph/index11.html)
+팩 레이아웃
 
 [index12.html](https://github.com/devsunset/d3-work/blob/main/Graph/index12.html)
+트리맵 레이아웃
 
 [index13.html](https://github.com/devsunset/d3-work/blob/main/Graph/index13.html)
+히트맵
 
 [index14.html](https://github.com/devsunset/d3-work/blob/main/Graph/index14.html)
+지도/맵 레이아웃
 
+[index15.html](https://github.com/devsunset/d3-work/blob/main/Graph/index15.html)
+포스 레이아웃
+
+[index16.html](https://github.com/devsunset/d3-work/blob/main/Graph/index16.html)
+누적 막대그래프
+
+[index17.html](https://github.com/devsunset/d3-work/blob/main/Graph/index17.html)
+트리 레이아웃
+
+[index18.html](https://github.com/devsunset/d3-work/blob/main/Graph/index18.html)
+계두도
+
+[index19.html](https://github.com/devsunset/d3-work/blob/main/Graph/index19.html)
+그래프를 정렬하여 표시
+
+[index20.html](https://github.com/devsunset/d3-work/blob/main/Graph/index20.html)
+피시아이 플러그인 이용
+
+[index21.html](https://github.com/devsunset/d3-work/blob/main/Graph/index21.html)
+서버 로그 불러와  OS의 점유율을 원그래프로 표시
 
 
