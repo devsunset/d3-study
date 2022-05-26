@@ -21,6 +21,20 @@ https://github.com/topojson/topojson/wiki
 
 https://github.com/d3/d3-geo-projection
 
+https://www.naturalearthdata.com/
+
+https://bost.ocks.org/mike/map/
+
+https://geojson.org/geojson-spec.html
+
+
+http://www.kyngchaos.com/software/archive/#gdal   
+GDAL
+
+org2ogr -f GeoJSON [출력 파일 이름] [변환할 Shape 파일 이름]
+
+https://qgis.org/ko/site/
+
 
 [D3 Basic Flow]
 

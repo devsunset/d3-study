@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Graph - 지도/맵 레이아웃</title>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+		<style>
+			svg { width: 640px; height: 640px; border: 1px solid black; background-color: #fff; }
+            canvas { width: 640px; height: 640px; border: 1px solid black; background-color: #fff; }
+			path { fill : white; stroke: black; stroke-width: 0.5; }
+		</style>
+	</head>
+	<body>
+		<h1>Graph - 지도/맵 레이아웃</h1>
+		<svg id="myGraph1"></svg>
+        <svg id="myGraph2"></svg>
+        <svg id="myGraph3"></svg>
+        <svg id="myGraph4"></svg>
+        <svg id="myGraph5"></svg>
+        <svg id="myGraph6"></svg>
+        <svg id="myGraph7"></svg>
+        <svg id="myGraph8">
+			<defs>
+				<radialGradient id="grad" cx="0.55" cy="0.55" r="0.75" fx="0.25" fy="0.25">
+					<stop offset="0%" stop-color="#2f44ff"/>
+					<stop offset="100%" stop-color="#000000"/>
+				</radialGradient>
+			</defs>
+		</svg>
+        <canvas id="myGraph9" width="640" height="640"></canvas>
+		<script>
+            // 세계 지도 표시
+            var svgWidth = 640;	// SVG요소의 넓이
+            var svgHeight = 640;	// SVG요소의 높이
+            var pathx = d3.geo.path()	// 지도의 패스 생성
+            .projection(
+                    d3.geo.mercator()   // 투영 방법을 메르카토르 도법으로 설정
+                .translate([svgWidth/2, svgHeight/2])	// 화면에서의 표시 위치 조정
+                .scale(100)	// 축척 지정
+                )
+            // 세계 지도 데이터를 불러옴
+            d3.json("world.json", function(error, world) {
+                d3.select("#myGraph1")
+                .selectAll("path")	// path 요소 지정
+                .data(world.features)	// 데이터를 저장
+                .enter()
+                .append("path")	// path를 추가
+                .attr("d", pathx)	// 지형 데이터 설정
+            })
+
+            // 나라별 색상 표시
+            var svgWidth = 640;	// SVG요소의 넓이
+            var svgHeight = 640;	// SVG요소의 높이
+            var pathx = d3.geo.path()	// 지도의 패스 생성
+            .projection(
+                    d3.geo.mercator()   // 투영 방법을 메르카토르 도법으로 설정
+                .translate([svgWidth/2, svgHeight/2])	// 화면에서의 표시 위치 조정
+                .scale(100)	// 축척 지정
+                )
+            // 세계 지도 데이터를 불러옴
+            d3.json("world.json", function(error, world) {
+                d3.select("#myGraph2")
+                .selectAll("path")	// path 요소 지정
+                .data(world.features)	// 데이터를 저장
+                .enter()
+                .append("path")	// path를 추가
+                .attr("d", pathx)	// 지형 데이터 설정
+                .style("fill", function(d, i){
+                        return "hsl("+i+", 80%, 60%)";	// 색 설정
+                    })
+            })
+
+            // 바다 색상 흰색으로 표시
+            var svgWidth = 640;	// SVG요소의 넓이
+            var svgHeight = 640;	// SVG요소의 높이
+            var pathx = d3.geo.path()	// 지도의 패스 생성
+            .projection(
+                    d3.geo.mercator()   // 투영 방법을 메르카토르 도법으로 설정
+                .translate([svgWidth/2, svgHeight/2])	// 화면에서의 표시 위치 조정
+                .scale(100)	// 스케일 지정
+                )
+            // 세계 지도의 데이터를 불러옴
+            d3.json("world.json", function(error, world) {
+                d3.select("#myGraph3")
+                .selectAll("path")	// path 요소 지정
+                .data(world.features)	// 데이터를 저장
+                .enter()
+                .append("path")	// path를 추가
+                .attr("d", pathx)	// 지형 데이터 설정
+                .style("fill", function(d, i){
+                        if (d.properties.name == "Antarctica"){	// 남극일 때의 처리
+                            return "#fff";
+                        }
+                        return "hsl("+i+", 80%, 60%)";	// 색 설정
+                    })
+            })
+
+
+            // 한국만 다른 색으로 표시
+            var svgWidth = 640;	// SVG요소의 넓이
+            var svgHeight = 640;	// SVG요소의 높이
+            var pathx = d3.geo.path()	// 지도의 패스 생성
+            .projection(
+                    d3.geo.mercator()   // 투영 방법을 메르카토르 도법으로 설정
+                .translate([svgWidth/2, svgHeight/2])	// 화면에서의 표시 위치 조정
+                .scale(100)	// 스케일 지정
+                )
+            // 세계 지도 데이터를 불러옴
+            d3.json("world.json", function(error, world) {
+                d3.select("#myGraph4")
+                .selectAll("path")	// path 요소 지정
+                .data(world.features)	// 데이터를 저장
+                .enter()
+                .append("path")	// path를 추가
+                .attr("d", pathx)	// 지형 데이터 설정
+                .style("fill", function(d, i){
+                        if (d.properties.name == "Antarctica"){	// 남극일 때의 처리
+                            return "#fff";
+                        }
+                        if (d.properties.name == "Korea"){	// 한국일 때의 처리
+                            return "red";
+                        }
+                        return "#eee";	// 한국 이외는 회색으로
+                    })
+            })
+
+            // 지구 모양으로 표시
+            var svgWidth = 640;	// SVG요소의 넓이
+            var svgHeight = 640;	// SVG요소의 높이
+            var path = d3.geo.path()	// 지도의 패스 생성
+            .projection(
+                    d3.geo.orthographic()   // 투영 방법을 Orthographic에 설정
+                .translate([svgWidth/2, svgHeight/2])	// 화면에서의 표시 위치 조정
+                .clipAngle(90)	// 클립 범위 지정
+                .scale(280)	// 축척 지정
+                )
+            // 지구의 데이터를 불러옴
+            d3.json("world.json", function(error, world) {
+                d3.select("#myGraph5")
+                .selectAll("path")	// path 요소 지정
+                .data(world.features)	// 데이터를 저장
+                .enter()
+                .append("path")	// path를 추가
+                .attr("d", path)	// 지형 데이터 설정
+                .style("fill", function(d, i){
+                        if (d.properties.name == "Antarctica"){	// 남극일 때의 처리
+                            return "#fff";
+                        }
+                        if (d.properties.name == "Korea"){	// 한국일 때의 처리
+                            return "red";
+                        }
+                        return "#eee";	// 한국 이외는 회색으로
+                    })
+            })
+
+            // 회전 시키기
+            var svgWidth = 640;	// SVG요소의 넓이
+            var svgHeight = 640;	// SVG요소의 높이
+            var degree = 0;	// 회전 각도
+            var earth = d3.geo.orthographic()   // 투영 방법을 Orthographic에 설정
+            .translate([svgWidth/2, svgHeight/2])	// 화면에서의 표시 위치 조정
+            .clipAngle(90)	// 클립 범위 지정
+            .scale(280)	// 척도 지정
+            .rotate([degree, -25])	// 회전 각도 지정
+            var path = d3.geo.path()	// 패스와 투영 방법 설정
+            .projection(earth)
+            // 지구의 데이터를 불러옴
+            d3.json("world.json", function(error, world) {
+                var earthPath = d3.select("#myGraph6")
+                .selectAll("path")	// path 요소 지정
+                .data(world.features)	// 데이터를 저장
+                .enter()
+                .append("path")	// path를 추가
+                .attr("d", path)	// 지형 데이터 설정
+                .style("fill", function(d, i){
+                        if (d.properties.name == "Antarctica"){	// 남극일 때의 처리
+                            return "#fff";
+                        }
+                        if (d.properties.name == "Korea"){	// 한국일 때의 처리
+                            return "red";
+                        }
+                        return "#eee";	// 한국 이외는 회색으로
+                    })
+                // 타이머를 사용하여 지구를 회전시킴
+                d3.timer(function(){
+                    earth.rotate([degree, -25]);	// 각도 설정
+                    degree = degree + 2;	// 2도씩 움직임
+                    earthPath.attr("d", path)	// 지형 데이터 설정
+                });
+            })
+
+
+            // 바다 푸르게
+            var svgWidth = 640;	// SVG요소의 넓이
+            var svgHeight = 640;	// SVG요소의 높이
+            var degree = 0;	// 회전 각도
+            var earthSize = 280;	// 지구의 크기
+            var earth = d3.geo.orthographic()   // 투영 방법을 Orthographic에 설정
+            .translate([svgWidth/2, svgHeight/2])	// 화면에서의 표시 위치 조정
+            .clipAngle(90)	// 클립 범위 지정
+            .scale(earthSize)	// 척도 지정
+            .rotate([degree, -25])	// 회전 각도 지정
+            var path = d3.geo.path()	// 패스와 투영 방법 설정
+            .projection(earth)
+            // 지구의 데이터를 불러옴
+            d3.json("world.json", function(error, world) {
+                d3.select("#myGraph7")
+                .append("circle")	// 지구는 원형이므로 원을 추가
+                .attr("cx", svgWidth/2)	// 표시 화면의 가운데를 중심 X 좌표로 함
+                .attr("cy", svgHeight/2)	// 표시 화면의 가운데를 중심 Y 좌표로 함
+                .attr("r", earthSize)	// 표시할 지구의 반지름을 지정
+                .style("fill", "blue")	// 푸른 지구로 함
+                var earthPath = d3.select("#myGraph7")
+                .selectAll("path")	// path 요소 지정
+                .data(world.features)	// 데이터를 저장
+                .enter()
+                .append("path")	// path를 추가
+                .attr("d", path)	// 지형 데이터 설정
+                .style("fill", function(d, i){
+                        if (d.properties.name == "Antarctica"){	// 남극일 때의 처리
+                            return "#fff";
+                        }
+                        if (d.properties.name == "Korea"){	// 한국일 때의 처리
+                            return "red";
+                        }
+                        return "#eee";	// 한국 이외는 회색으로
+                    })
+                // 타이머를 사용하여 지구를 회전시킴
+                d3.timer(function(){
+                    earth.rotate([degree, -25]);	// 각도 설정
+                    degree = degree + 2;	// 2도씩 움직임
+                    earthPath.attr("d", path)	// 지형 데이터 설정
+                });
+            })
+
+
+            // svg 그라데이션 효과 처리 
+            var svgWidth = 640;	// SVG요소의 넓이
+            var svgHeight = 640;	// SVG요소의 높이
+            var degree = 0;	// 회전 각도
+            var earthSize = 280;	// 지구의 크기
+            var earth = d3.geo.orthographic()   // 투영 방법을 Orthographic에 설정
+            .translate([svgWidth/2, svgHeight/2])	// 화면에서의 표시 위치 조정
+            .clipAngle(90)	// 클립 범위 지정
+            .scale(earthSize)	// 척도 지정
+            .rotate([degree, -25])	// 회전 각도 지정
+            var path = d3.geo.path()	// 패스와 투영 방법 설정
+            .projection(earth)
+            // 지구의 데이터를 불러옴
+            d3.json("world.json", function(error, world) {
+                d3.select("#myGraph8")
+                .append("circle")
+                .attr("cx", svgWidth/2)	// 표시 화면의 가운데를 중심 X 좌표로 함
+                .attr("cy", svgHeight/2)	// 표시 화면의 가운데를 중심 Y 좌표로 함
+                .attr("r", earthSize)	// 표시할 지구의 반지름을 지정
+                .style("fill", "url(#grad)")	// 칠하기에 그러데이션 지정
+                var earthPath = d3.select("#myGraph8")
+                .selectAll("path")	// path 요소 지정
+                .data(world.features)	// 데이터를 저장
+                .enter()
+                .append("path")	// path를 추가
+                .attr("d", path)	// 지형 데이터 설정
+                .style("fill", function(d, i){
+                        if (d.properties.name == "Antarctica"){	// 남극일 때의 처리
+                            return "#fff";
+                        }
+                        if (d.properties.name == "Korea"){	// 한국일 때의 처리
+                            return "red";
+                        }
+                        return "#eee";	// 한국 이외는 회색으로
+                    })
+                // 타이머를 사용하여 지구를 회전시킴
+                d3.timer(function(){
+                    earth.rotate([degree, -25]);	// 각도 설정
+                    degree = degree + 2;	// 2도씩 움직임
+                    earthPath.attr("d", path)	// 지형 데이터 설정
+                });
+            })
+
+            /*
+            // Canvas에 그리기
+            var canvasWidth = 640;	// Canvas 요소의 넓이
+            var canvasHeight = 640;	// Canvas 요소의 높이
+            var degree = 0;	// 회전 각도
+            var earthSize = 280;	// 지구의 크기
+            var earth = d3.geo.orthographic()   // 투영 방법을 Orthographic로 설정
+            .translate([canvasWidth/2, canvasHeight/2])	//화면에서의 표시 위치 조정
+            .clipAngle(90)	// 클립 범위 지정
+            .scale(earthSize)	// 축척 지정
+            .rotate([degree, -25])	// 회전 각도 지정
+            var path = d3.geo.path()	// 패스와 투영 방법 설정
+            .projection(earth)
+            var context = d3.select("#myGraph9").node().getContext("2d");	// 컨텍스트 얻기
+            // 지구의 데이터를 불러옴
+            d3.json("world.json", function(error, world) {
+                d3.timer(function(){
+                    earth.rotate([degree, -25]);	// 각도 설정
+                    degree = degree + 2;	// 2도씩 움직임
+                    // 이하가 Canvas 그리기 처리
+                    context.clearRect(0, 0, canvasWidth, canvasHeight);	// Canvas 안 삭제
+                    context.fillStyle = "#22f";	// 칠하기 색을 지정
+                    context.beginPath();
+                    context.arc(canvasWidth/2, canvasHeight/2, earthSize, 0, Math.PI*2, 1);	// 지구(원) 그리기
+                    context.fill();	// 지구를 칠함
+                    context.fillStyle = "#eee";	// 칠하기 색을 지정
+                    context.strokeStyle = "black";	// 선의 색을 지정
+                    context.lineWidth = 0.5;	// 선의 굵기
+                    context.beginPath();
+                    path.context(context)(world);	// 지도의 패스 생성
+                    context.fill();	// 지도를 칠함
+                    context.stroke();	// 지도의 경계선 그리기
+                });
+            })
+            */
+        </script>
+	</body>
+</html>
